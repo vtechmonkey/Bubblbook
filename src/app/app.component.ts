@@ -31,6 +31,8 @@ import {Todo} from './todo/todo.component';
 // Import Recipes component
 import {Recipes} from './recipes/recipes.component';
 
+// Import Recipes component
+import {ActivityRoot} from './activity/activity-root.component';
 /*
  * App Component
  * Top Level Component
@@ -62,9 +64,12 @@ import {Recipes} from './recipes/recipes.component';
           <button md-button router-active [routerLink]=" ['Recipes'] ">
             Recipes
           </button>
+          <button md-button router-active [routerLink]=" ['Activity'] ">
+            Activities
+          </button>
           <button md-button router-active [routerLink]=" ['About'] ">
             About
-          </button>
+          </button>           
       </md-toolbar>
 
       <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading">
@@ -86,6 +91,7 @@ import {Recipes} from './recipes/recipes.component';
   { path: '/home',  name: 'Home',  component: Home },
   { path: '/todo', component: Todo, name: 'Todo' },
   { path: '/redux', component: Recipes, name: 'Recipes' },
+  { path: '/activity/...', component: ActivityRoot, name: 'Activity' },
   // Async load a component using Webpack's require with
   // es6-promise-loader and webpack `require`
   { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },

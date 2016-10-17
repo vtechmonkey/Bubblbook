@@ -1,0 +1,12 @@
+<h2>Activity List</h2>
+
+<ul>
+  <li *ngFor="#activity of activitys">
+    <a
+      [routerLink]="['ActivityDetail', { id: activity.id }]">
+      <strong>{{ activity.id }}</strong>
+      -
+      {{ activity.name }}
+    </a>
+  </li>
+</ul>

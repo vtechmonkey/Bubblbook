@@ -1,12 +1,12 @@
 <div class="recipe-card">
   <div>
     <h2 *ngIf="selectedRecipe._id">Editing {{originalTitle}}</h2>
-    <h2 *ngIf="!selectedRecipe._id">Create New Recipe</h2>
+    <h2 *ngIf="!selectedRecipe._id">Create a New Activity</h2>
   </div>
   <div>
     <form novalidate>
         <div>
-          <label>Recipe Title</label>
+          <label>Title</label>
           <input [(ngModel)]="selectedRecipe.title"
             placeholder="Enter a title" type="text">
         </div>
@@ -41,30 +41,30 @@
             placeholder="Enter a username" type="text">
         </div>
         <div>
-          <label>Ingredients</label>
+          <label>Details</label>
           <button (click)="newIngredient()">
-              Add an Ingredient <i class="glyphicon glyphicon-plus"></i>
+              Add a detail... <i class="glyphicon glyphicon-plus"></i>
           </button>
           <div *ngFor="let ingredient of selectedRecipe.ingredients">
             <input [(ngModel)]="ingredient.amount"
-              placeholder="Amount?" type="text">
+              placeholder="Minimum number of people" type="text">
             <input [(ngModel)]="ingredient.unit"
-              placeholder="Units?" type="text">
+              placeholder="Minimum Price" type="text">
             <input [(ngModel)]="ingredient.name"
-              placeholder="Name?" type="text">
+              placeholder="Name of Venue" type="text">
             <i (click)="deleteIngredient(ingredient)"
               class="glyphicon glyphicon-remove">
             </i>
           </div>
         </div>
         <div>
-          <label>Directions</label>
+          <label>What else should we know?</label>
           <button (click)="newDirection()">
-              Add a Step in the Process
+              Add more info...
           </button>
           <div *ngFor="let direction of selectedRecipe.directions">
             <input [(ngModel)]="direction.step"
-              placeholder="Enter a step" type="text">
+              placeholder="tell us more..." type="text">
             <button (click)="deleteDirection(step)">
               X
             </button>
