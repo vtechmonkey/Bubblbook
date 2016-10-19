@@ -1,41 +1,53 @@
 // ```
-// _activity.route.js
+// _activity.router.js
 // (c) 2016 David Newman
 // david.r.niciforovic@gmail.com
-// _activity.route.js may be freely distributed under the MIT license
+// _activity.router.js may be freely distributed under the MIT license
 // ```
 
-// */app/routes/activity/_activity.router.js*
+// */app/routes/_activity.router.js*
 
-// ## Activity API object
+// # Activity API object
 
-// GET | /api/activity | Get all of the Activity items
-// GET | /api/activity/:activity_id |Get a single Activity item by Activity item id
-// POST | /api/activity | Create a single Activity item
-// DELETE | /api/activity/:activity_id | Delete a single Activity item
-// PUT | /api/activity/:activity_id | Update a Activity item with new info
+// HTTP Verb  Route                   Description
 
-// Load the `Activity` model
+// GET        /api/activity             Get all of the activities
+// GET        /api/activity/:activity_id  Get a single activity by activity id
+// POST       /api/activity             Create a single activity
+// DELETE     /api/activity/:activity_id  Delete a single activity
+// PUT        /api/activity/:activity_id  Update a activity with new info
+
+// Load the `activity` model
 import Activity from '../models/activity.model';
 
 export default (app, router) => {
 
-  // ### Activity API Routes
+  // ## Activity API Routes
 
-  // Define routes for the Activity item API
+  // Define routes for the `activity` API
 
   router.route('/activity')
 
-    // ### Create a Activity item
+    // ### Create a `activity`
 
     // Accessed at POST http://localhost:8080/api/activity
 
-    // Create a Activity item
+    // Create a `activity`
     .post((req, res) => {
 
       Activity.create({
 
-        text : req.body.text
+        title : req.body.title,
+
+        tags : req.body.tags,
+
+        rating : req.body.rating,
+
+        description : req.body.description,
+
+        ingredients : req.body.ingredients,
+
+        directions : req.body.directions,
 
       }, (err, activity) => {
 
@@ -45,21 +57,17 @@ export default (app, router) => {
         // DEBUG
         console.log(`Activity created: ${activity}`);
 
-        Activity.find((err, activitys) => {
-          if(err)
-            res.send(err);
-
-          res.json(activitys);
-        });
+        // return the new `activity` to our front-end
+        res.json(activity);
       });
     })
 
-    // ### Get all of the Activity items
+    // ### Get all of the `activities`
 
     // Accessed at GET http://localhost:8080/api/activity
     .get((req, res) => {
 
-      // Use mongoose to get all Activity items in the database
+      // Use mongoose to get all activities in the database
       Activity.find((err, activity) => {
 
         if(err)
@@ -72,13 +80,13 @@ export default (app, router) => {
 
   router.route('/activity/:activity_id')
 
-    // ### Get a Activity item by ID
+    // ### Get a `activity` by ID
 
     // Accessed at GET http://localhost:8080/api/activity/:activity_id
     .get((req, res) => {
 
-      // Use mongoose to a single Activity item by id in the database
-      Activity.findOne(req.params.camelized_id, (err, activity) => {
+      // Use mongoose to fetch a single `activity` by id in the database
+      Activity.findOne(req.params.activity_id, (err, activity) => {
 
         if(err)
           res.send(err);
@@ -88,12 +96,12 @@ export default (app, router) => {
       });
     })
 
-    // ### Update a Activity item by ID
+    // ### Update a `activity` by ID
 
     // Accessed at PUT http://localhost:8080/api/activity/:activity_id
     .put((req, res) => {
 
-      // use our Activity model to find the Activity item we want
+      // use our `activity` model to find the `activity` we want
       Activity.findOne({
 
         '_id' : req.params.activity_id
@@ -104,10 +112,28 @@ export default (app, router) => {
           res.send(err);
 
         // Only update a field if a new value has been passed in
-        if (req.body.text)
-          activity.text = req.body.text;
+        if (req.body.title)
+          activity.title = req.body.title;
 
-        // save the Activity item
+        if (req.body.tags)
+          activity.tags = req.body.tags;
+
+        if (req.body.rating)
+          activity.rating = req.body.rating;
+
+        if (req.body.creator)
+          activity.creator = req.body.creator;
+
+        if (req.body.description)
+          activity.description = req.body.description;
+
+        if (req.body.ingredients)
+          activity.ingredients = req.body.ingredients;
+
+        if (req.body.directions)
+          activity.directions = req.body.directions;
+
+        // save the `activity`
         return activity.save((err) => {
 
           if (err)
@@ -119,7 +145,7 @@ export default (app, router) => {
       });
     })
 
-    // ### Delete a Activity item by ID
+    // ### Delete a `activity` by ID
 
     // Accessed at DELETE http://localhost:8080/api/activity/:activity_id
     .delete((req, res) => {
@@ -135,13 +161,14 @@ export default (app, router) => {
         if(err)
           res.send(err);
 
-        console.log('Activity successfully deleted!');
+        else
+          console.log('Activity successfully deleted!');
 
-        Activity.find((err, activitys) => {
+        Activity.find((err, activities) => {
           if(err)
             res.send(err);
 
-          res.json(activitys);
+          res.json(activities);
         });
       });
     });

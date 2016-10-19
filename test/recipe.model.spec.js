@@ -5,16 +5,16 @@ let utils = require('./utils');
 import chai from 'chai';
 let should = chai.should();
 
-// import our `Recipe` mongoose model
-import Recipe from '../app/models/recipe.model';
+// import our `Activity` mongoose model
+import Activity from '../app/models/activity.model';
 
-describe('Recipe: models', () => {
+describe('Activity: models', () => {
 
   describe('create()', () => {
 
-    it('should create a new Recipe', (done) => {
+    it('should create a new Activity', (done) => {
 
-      // Create a `Recipe` object to pass to `Recipe.create()``
+      // Create a `Activity` object to pass to `Activity.create()``
       let r = {
 
         title: 'Peanut Butter Cookies',
@@ -66,43 +66,43 @@ describe('Recipe: models', () => {
         }]
       };
 
-      Recipe.create(r, (err, createdRecipe) => {
+      Activity.create(r, (err, createdActivity) => {
 
         // Confirm that that an error does not exist
         should.not.exist(err);
 
-        // verify that the returned `recipe` is what we expect
-        createdRecipe.title.should.equal(r.title);
+        // verify that the returned `activity` is what we expect
+        createdActivity.title.should.equal(r.title);
 
-        // The `Recipe` object should have a tags property
-        should.exist(createdRecipe.tags);
+        // The `Activity` object should have a tags property
+        should.exist(createdActivity.tags);
 
         // Which should be an array with a length equal to
         // that of the test object we created
-        createdRecipe.tags.should.have.length(r.tags.length);
+        createdActivity.tags.should.have.length(r.tags.length);
 
         // For each `tag` object in the `tags` array,
         // check if it has a property `name` and then
         // see if the `name` value is equal to the
         // one we passed in with the test object
-        for (let i in createdRecipe.tags) {
+        for (let i in createdActivity.tags) {
 
-          should.exist(createdRecipe.tags[i].name);
+          should.exist(createdActivity.tags[i].name);
 
-          createdRecipe.tags[i].should.equal(r.tags[i]);
+          createdActivity.tags[i].should.equal(r.tags[i]);
         }
 
         // It should also have `rating`, `creator`, and `description`
         // properties equal to those that we passed in
-        createdRecipe.rating.should.equal(r.rating);
-        createdRecipe.creator.should.equal(r.creator);
-        createdRecipe.description.should.equal(r.description);
+        createdActivity.rating.should.equal(r.rating);
+        createdActivity.creator.should.equal(r.creator);
+        createdActivity.description.should.equal(r.description);
 
-        // The `Recipe` object should have an `ingredients` property
-        should.exist(createdRecipe.ingredients);
+        // The `Activity` object should have an `ingredients` property
+        should.exist(createdActivity.ingredients);
         // `ingredients` should be an array with a length equal to
         // that of the test object's `ingredients` property
-        createdRecipe.ingredients.should.have.length(r.ingredients.length);
+        createdActivity.ingredients.should.have.length(r.ingredients.length);
 
         // For each `ingredient` object in the `ingredients` array,
         // check if it has a property `amount` and then
@@ -110,38 +110,38 @@ describe('Recipe: models', () => {
         // one we passed in with the test object
         // Repeat for the `unit` and `name` properties
         // for each `ingredient`
-        for (let i in createdRecipe.ingredients) {
+        for (let i in createdActivity.ingredients) {
 
-          should.exist(createdRecipe.ingredients[i].amount);
-          should.exist(createdRecipe.ingredients[i].unit);
-          should.exist(createdRecipe.ingredients[i].name);
+          should.exist(createdActivity.ingredients[i].amount);
+          should.exist(createdActivity.ingredients[i].unit);
+          should.exist(createdActivity.ingredients[i].name);
 
-          createdRecipe.ingredients[i].amount
+          createdActivity.ingredients[i].amount
             .should.equal(r.ingredients[i].amount);
 
-          createdRecipe.ingredients[i].unit
+          createdActivity.ingredients[i].unit
             .should.equal(r.ingredients[i].unit);
 
-          createdRecipe.ingredients[i].name
+          createdActivity.ingredients[i].name
             .should.equal(r.ingredients[i].name);
         }
 
-        // The `Recipe` object should have a `directions` property
-        should.exist(createdRecipe.directions);
+        // The `Activity` object should have a `directions` property
+        should.exist(createdActivity.directions);
 
         // Which should be an array with a length equal to
         // that of the test object we created
-        createdRecipe.directions.should.have.length(r.directions.length);
+        createdActivity.directions.should.have.length(r.directions.length);
 
         // For each `direction` object in the `directions` array,
         // check if it has a property `step` and then
         // see if the `step` value is equal to the
         // one we passed in with the test object
-        for (let i in createdRecipe.directions) {
+        for (let i in createdActivity.directions) {
 
-          should.exist(createdRecipe.directions[i].step);
+          should.exist(createdActivity.directions[i].step);
 
-          createdRecipe.directions[i].should.equal(r.directions[i]);
+          createdActivity.directions[i].should.equal(r.directions[i]);
         }
 
         // Call done to tell mocha that we are done with this test

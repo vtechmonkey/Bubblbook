@@ -1,23 +1,33 @@
-<div class="recipe-card">
+<div class="activity-card">
   <div>
-    <h2 *ngIf="selectedRecipe._id">Editing {{originalTitle}}</h2>
-    <h2 *ngIf="!selectedRecipe._id">Create a New Activity</h2>
+    <h2 *ngIf="selectedActivity._id">Editing {{originalTitle}}</h2>
+    <h2 *ngIf="!selectedActivity._id">Create a New Activity</h2>
   </div>
   <div>
     <form novalidate>
         <div>
           <label>Title</label>
-          <input [(ngModel)]="selectedRecipe.title"
-            placeholder="Enter a title" type="text">
+          <input [(ngModel)]="selectedActivity.title"
+            placeholder="Enter a title" type="text" required>
+        </div>
+        <div>
+          <label>Dates</label>
+          <button (click)="newDate()">
+                Add some dates!
+          </button>
+          <div *ngFor="let date of selectedActivity.dates">
+           <input [(ngModel)]="date.name"
+              placeholder="Select your dates" type="date">
+          </div>
         </div>
         <div>
           <label>Tags</label>
           <button (click)="newTag()">
               Add new tag
           </button>
-          <div *ngFor="let tag of selectedRecipe.tags">
-            <input [(ngModel)]="tag.name" placeholder="Enter a tag"
-            type="text">
+          <div *ngFor="let tag of selectedActivity.tags">
+            <input [(ngModel)]="tag.name"
+               placeholder="Enter a tag" type="text">
             <button (click)="deleteTag(tag)">
               X
             </button>
@@ -25,19 +35,19 @@
         </div>
         <div>
           <label>Description</label>
-          <input [(ngModel)]="selectedRecipe.description"
+          <input [(ngModel)]="selectedActivity.description"
             placeholder="Enter a description" type="text">
         </div>
         <div>
           <label>Rating</label>
-          <rating [interactive]="true" [rate]="selectedRecipe.rating"
+          <rating [interactive]="true" [rate]="selectedActivity.rating"
             (updateRate)="onUpdate($event)"></rating>
-          <input [(ngModel)]="selectedRecipe.rating"
+          <input [(ngModel)]="selectedActivity.rating"
             placeholder="Enter a rating" type="text">
         </div>
         <div>
           <label>Creator</label>
-          <input [(ngModel)]="selectedRecipe.creator"
+          <input [(ngModel)]="selectedActivity.creator"
             placeholder="Enter a username" type="text">
         </div>
         <div>
@@ -45,7 +55,7 @@
           <button (click)="newIngredient()">
               Add a detail... <i class="glyphicon glyphicon-plus"></i>
           </button>
-          <div *ngFor="let ingredient of selectedRecipe.ingredients">
+          <div *ngFor="let ingredient of selectedActivity.ingredients">
             <input [(ngModel)]="ingredient.amount"
               placeholder="Minimum number of people" type="text">
             <input [(ngModel)]="ingredient.unit"
@@ -62,7 +72,7 @@
           <button (click)="newDirection()">
               Add more info...
           </button>
-          <div *ngFor="let direction of selectedRecipe.directions">
+          <div *ngFor="let direction of selectedActivity.directions">
             <input [(ngModel)]="direction.step"
               placeholder="tell us more..." type="text">
             <button (click)="deleteDirection(step)">
@@ -73,10 +83,10 @@
     </form>
   </div>
   <div>
-      <button type="submit" (click)="cancelled.emit(selectedRecipe)">
+      <button type="submit" (click)="cancelled.emit(selectedActivity)">
         Cancel
       </button>
-      <button type="submit" (click)="saved.emit(selectedRecipe)">
+      <button type="submit" (click)="saved.emit(selectedActivity)">
         Save
       </button>
   </div>

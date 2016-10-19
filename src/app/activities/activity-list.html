@@ -1,0 +1,98 @@
+
+<div style="display:flex;flex-direction:row" *ngFor="let activity of activities" (click)="selected.emit(activity)">
+
+  <div flex>
+  
+  <md-card>
+  <h4> Click to Edit</h4>
+  <h2> {{activity.creator}} invites you to {{activity.title}}</h2>
+  <h3>{{activity.description}}</h3>
+   
+  <ul class="list-inline">
+    <li  *ngFor="let date of activity.dates">
+      <span class="label label-primary">
+        {{date.name}}
+      </span>
+    </li>
+  </ul>
+  <ul class="list-inline">
+    <li *ngFor="let tag of activity.tags">
+      <span class="label label-warning">
+        #{{tag.name}}
+      </span>
+    </li>
+  </ul>
+  <div>
+    <rating [interactive]="false" [rate]="activity.rating"></rating>
+    {{activity.rating}}
+  </div>
+
+  <div>
+    {{activity.description}}
+  </div>
+  <ul>
+    <li *ngFor="let ingredient of activity.ingredients">
+      {{ ingredient.amount }} {{ ingredient.unit}} {{ ingredient.name }}
+    </li>
+  </ul>
+  <ol>
+    <li *ngFor="let direction of activity.directions">
+      {{ direction.step }}
+    </li>
+  </ol>
+  <div>
+    <button (click)="deleted.emit(activity); $event.stopPropagation();">
+      <i>close</i>
+    </button>
+  </div>
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+<!-- <div *ngFor="let activity of activities" (click)="selected.emit(activity)"
+  class="activity-card">
+  <div>
+    <h2>{{activity.title}}</h2>
+  </div>
+  <ul class="list-inline">
+    <li *ngFor="let tag of activity.tags">
+      <span class="label label-warning">
+        #{{tag.name}}
+      </span>
+    </li>
+  </ul>
+  <div>
+    <rating [interactive]="false" [rate]="activity.rating"></rating>
+    {{activity.rating}}
+  </div>
+  <div>
+    {{activity.creator}}
+  </div>
+  <div>
+    {{activity.description}}
+  </div>
+  <ul>
+    <li *ngFor="let ingredient of activity.ingredients">
+      {{ ingredient.amount }} {{ ingredient.unit}} {{ ingredient.name }}
+    </li>
+  </ul>
+  <ol>
+    <li *ngFor="let direction of activity.directions">
+      {{ direction.step }}
+    </li>
+  </ol>
+  <div>
+    <button (click)="deleted.emit(activity); $event.stopPropagation();">
+      <i>close</i>
+    </button>
+  </div>
+</div>
+ -->

@@ -1,11 +1,11 @@
 // ```
-// recipes.component.js
+// activities.component.js
 // (c) 2016 David Newman
 // blackshuriken@hotmail.com
-// recipes.component.js may be freely distributed under the MIT license
+// activities.component.js may be freely distributed under the MIT license
 // ```
 
-// # Recipes Component
+// # Activities Component
 
 import {Component,
   Input,
@@ -17,37 +17,37 @@ import {Component,
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 
-import {RecipeService} from './recipe.service';
-import {Recipe} from './recipe.store';
+import {ActivityService} from './activity.service';
+import {Activity} from './activity.store';
 import {AppStore} from '../app.store';
 
 import {Rating} from './rating.component';
 
 @Component({
-  selector: 'recipe-detail',
-  template: require('./recipe-details.html'),
+  selector: 'activity-detail',
+  template: require('./activity-details.html'),
   directives: [Rating]
 })
-export class RecipeDetails {
+export class ActivityDetails {
 
   originalTitle: string;
-  selectedRecipe: Recipe;
+  selectedActivity: Activity;
 
-  // Assign our `recipe` to a locally scoped property
+  // Assign our `activity` to a locally scoped property
   // Perform additional logic on every update via ES6 setter
-  // Create a copy of `_recipe` and assign it to `this.selectedRecipe`
+  // Create a copy of `_activity` and assign it to `this.selectedActivity`
   // which we will use to bind our form to
-  @Input('recipe') set _recipe(value: Recipe) {
+  @Input('activity') set _activity(value: Activity) {
 
     if (value) this.originalTitle = value.title;
-    this.selectedRecipe = Object.assign({}, value);
+    this.selectedActivity = Object.assign({}, value);
 
     // DEBUG
-    console.log('this.selectedRecipe: ');
-    console.log(this.selectedRecipe);
+    console.log('this.selectedActivity: ');
+    console.log(this.selectedActivity);
   }
 
-  // Allow the user to save/delete a `recipe or cancel the
+  // Allow the user to save/delete a `activity or cancel the
   // operation. Flow events up from here.
   @Output() saved = new EventEmitter();
   @Output() cancelled = new EventEmitter();
@@ -55,10 +55,25 @@ export class RecipeDetails {
   constructor() {
 
   }
+    newDate() {
+
+    // blank `tag` object
+    let date = {
+      name: ''
+    };
+
+    // Check to see if the `tags` array exists before
+    // attempting to push a `tag` to it
+    if (!this.selectedActivity.dates)
+      this.selectedActivity.dates = [];
+
+    this.selectedActivity.dates.push(date);
+  }
+
 
   // Whenever the user needs to add a new `tag`, push an
   // empty `tag` object to the `tags` array on the
-  // `selectedRecipe`
+  // `selectedActivity`
   newTag() {
 
     // blank `tag` object
@@ -68,15 +83,15 @@ export class RecipeDetails {
 
     // Check to see if the `tags` array exists before
     // attempting to push a `tag` to it
-    if (!this.selectedRecipe.tags)
-      this.selectedRecipe.tags = [];
+    if (!this.selectedActivity.tags)
+      this.selectedActivity.tags = [];
 
-    this.selectedRecipe.tags.push(tag);
+    this.selectedActivity.tags.push(tag);
   }
 
   // Whenever the user needs to add a new `ingredient`, push an
   // empty `ingredient` object to the `ingredient` array on the
-  // `selectedRecipe`
+  // `selectedActivity`
   newIngredient() {
 
     // blank `ingredient` object
@@ -88,15 +103,15 @@ export class RecipeDetails {
 
     // Check to see if the `ingredients` array exists before
     // attempting to push an `ingredient` to it
-    if (!this.selectedRecipe.ingredients)
-      this.selectedRecipe.ingredients = [];
+    if (!this.selectedActivity.ingredients)
+      this.selectedActivity.ingredients = [];
 
-    this.selectedRecipe.ingredients.push(ingredient);
+    this.selectedActivity.ingredients.push(ingredient);
   }
 
   // Whenever the user needs to add a new `direction`, push an
   // empty `direction` object to the `direction` array on the
-  // `selectedRecipe`
+  // `selectedActivity`
   newDirection() {
 
     // blank `direction` object
@@ -106,51 +121,51 @@ export class RecipeDetails {
 
     // Check to see if the `directions` array exists before
     // attempting to push a `direction` to it
-    if (!this.selectedRecipe.directions)
-      this.selectedRecipe.directions = [];
+    if (!this.selectedActivity.directions)
+      this.selectedActivity.directions = [];
 
-    this.selectedRecipe.directions.push(direction);
+    this.selectedActivity.directions.push(direction);
   }
 
   onUpdate(value) {
 
-    // Set the value of the selected recipe's rating to the
+    // Set the value of the selected activity's rating to the
     // value passed up from the `rating` component
-    this.selectedRecipe.rating = value;
+    this.selectedActivity.rating = value;
   }
 
   deleteTag(tag) {
-    // loop through all of the `tags` in the `selectedRecipe`
-    for (let i = 0; i < this.selectedRecipe.tags.length; i++) {
+    // loop through all of the `tags` in the `selectedActivity`
+    for (let i = 0; i < this.selectedActivity.tags.length; i++) {
       // if the `tag` at the current index matches that of the one
       // the user is trying to delete
-      if (this.selectedRecipe.tags[i] === tag) {
+      if (this.selectedActivity.tags[i] === tag) {
         // delete the `tag` at the current index
-        this.selectedRecipe.tags.splice(i, 1);
+        this.selectedActivity.tags.splice(i, 1);
       }
     }
   }
 
   deleteIngredient(ingredient) {
-    // loop through all of the `ingredients` in the `selectedRecipe`
-    for (let i = 0; i < this.selectedRecipe.ingredients.length; i++) {
+    // loop through all of the `ingredients` in the `selectedActivity`
+    for (let i = 0; i < this.selectedActivity.ingredients.length; i++) {
       // if the `ingredient` at the current index matches that of the one
       // the user is trying to delete
-      if (this.selectedRecipe.ingredients[i] === ingredient) {
+      if (this.selectedActivity.ingredients[i] === ingredient) {
         // delete the `ingredient` at the current index
-        this.selectedRecipe.ingredients.splice(i, 1);
+        this.selectedActivity.ingredients.splice(i, 1);
       }
     }
   }
 
   deleteDirection(step) {
-    // loop through all of the `directions` in the `selectedRecipe`
-    for (let i = 0; i < this.selectedRecipe.directions.length; i++) {
+    // loop through all of the `directions` in the `selectedActivity`
+    for (let i = 0; i < this.selectedActivity.directions.length; i++) {
       // if the `direction` at the current index matches that of the one
       // the user is trying to delete
-      if (this.selectedRecipe.directions[i] === step) {
+      if (this.selectedActivity.directions[i] === step) {
         // delete the `direction` at the current index
-        this.selectedRecipe.directions.splice(i, 1);
+        this.selectedActivity.directions.splice(i, 1);
       }
     }
   }

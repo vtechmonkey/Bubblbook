@@ -28,11 +28,10 @@ import {NgFor} from '@angular/common';
 // Import Todo component
 import {Todo} from './todo/todo.component';
 
-// Import Recipes component
-import {Recipes} from './recipes/recipes.component';
+// Import Activities component
+import {Activities} from './activities/activities.component';
 
-// Import Recipes component
-import {ActivityRoot} from './activity/activity-root.component';
+
 /*
  * App Component
  * Top Level Component
@@ -61,12 +60,10 @@ import {ActivityRoot} from './activity/activity-root.component';
           <button md-button router-active [routerLink]=" ['Todo'] ">
             Todo
           </button>
-          <button md-button router-active [routerLink]=" ['Recipes'] ">
-            Recipes
-          </button>
-          <button md-button router-active [routerLink]=" ['Activity'] ">
+          <button md-button router-active [routerLink]=" ['Activities'] ">
             Activities
           </button>
+          
           <button md-button router-active [routerLink]=" ['About'] ">
             About
           </button>           
@@ -77,11 +74,10 @@ import {ActivityRoot} from './activity/activity-root.component';
 
       <router-outlet></router-outlet>
 
-      <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
+      
 
       <footer>
-        <img [src]="angularLogo" width="7%">
-        <span>Angular 2 MEAN Webpack Starter by <a [href]="url">@datatype_void</a></span>
+
       </footer>
     </md-content>
   `
@@ -90,15 +86,15 @@ import {ActivityRoot} from './activity/activity-root.component';
   { path: '/', name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
   { path: '/todo', component: Todo, name: 'Todo' },
-  { path: '/redux', component: Recipes, name: 'Recipes' },
-  { path: '/activity/...', component: ActivityRoot, name: 'Activity' },
+  { path: '/redux', component: Activities, name: 'Activities' },
+ 
   // Async load a component using Webpack's require with
   // es6-promise-loader and webpack `require`
   { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
 ])
 export class App {
-  angularLogo = 'assets/img/angular-logo.png';
-  name = 'Angular 2 MEAN Webpack Starter';
+  angularLogo = 'assets/img/logo.png';
+  name = 'BubblBook';
   url = 'https://twitter.com/datatype_void';
 
   // Pass in our application `state`

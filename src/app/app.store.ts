@@ -1,13 +1,13 @@
-// Import our `Recipe` store
-import {Recipe} from './recipes/recipe.store';
+// Import our `Activity` store
+import {Activity} from './activities/activity.store';
 
 // We are dealing with a single object that has:
-//   * An `recipes` collection
-//   * A `selectedRecipe` property holding a single `Recipe`
+//   * An `activities` collection
+//   * A `selectedActivity` property holding a single `Activity`
 export interface AppStore {
 
-    recipes: Recipe[];
-    selectedRecipe: Recipe;
+    activities: Activity[];
+    selectedActivity: Activity;
 
     // If ever you were to desire more functionality, you
     // could expand the `store` with new `key, value` pairs

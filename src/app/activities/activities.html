@@ -1,0 +1,12 @@
+
+<div>
+  <activity-list [activities]="activities | async"
+    (selected)="selectActivity($event)" (deleted)="deleteActivity($event)">
+  </activity-list>
+</div>
+<div>
+  <activity-detail
+    (saved)="saveActivity($event)" (cancelled)="resetActivity($event)"
+    [activity]="selectedActivity | async">Pick your Fancy:</activity-detail>
+
+</div>
