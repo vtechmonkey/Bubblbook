@@ -39,6 +39,8 @@ export default (app, router) => {
 
         title : req.body.title,
 
+        dates : req.body.dates,
+
         tags : req.body.tags,
 
         rating : req.body.rating,
@@ -115,6 +117,9 @@ export default (app, router) => {
         if (req.body.title)
           activity.title = req.body.title;
 
+        if (req.body.dates)
+          activity.dates = req.body.dates;
+        
         if (req.body.tags)
           activity.tags = req.body.tags;
 

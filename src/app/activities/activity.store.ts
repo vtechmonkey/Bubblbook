@@ -9,7 +9,7 @@
 
 export interface Activity {
   _id: number;
-  dates:Array<Object>;
+  dates: Array<Object>;
   tags: Array<Object>;
   title: string;
   description: string;
